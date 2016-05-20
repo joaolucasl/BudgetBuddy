@@ -2,8 +2,22 @@ group 'me.jlucas'
 version '0.0.1'
 
 apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'org.javalite.activejdbc'
 
 sourceCompatibility = 1.5
+
+mainClassName = 'App'
+
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url 'http://repo.javalite.io' }
+    }
+    dependencies {
+        classpath group: 'org.javalite', name: 'activejdbc-gradle-plugin', version: '1.4.12-SNAPSHOT'
+    }
+}
 
 repositories {
     mavenCentral()
