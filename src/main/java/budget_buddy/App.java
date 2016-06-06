@@ -1,14 +1,20 @@
 package budget_buddy;
 
-import java.io.FileInputStream;
+
 import java.io.IOException;
+import java.sql.Connection;
 import java.util.logging.*;
 
+import org.jooq.*;
+
+import budget_buddy.util.DBConn;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import org.jooq.impl.DSL;
+
 
 /**
  * This is the main class for BudgetBuddy.
@@ -51,9 +57,13 @@ public class App extends Application {
 
             primaryStage.setScene(loginScene);
             primaryStage.setTitle("Budget Buddy - Login");
+            primaryStage.setResizable(false);
             primaryStage.show();
         } catch (IOException ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        Connection CurrentConn = new DBConn().getConnection();
+
     }
 }
