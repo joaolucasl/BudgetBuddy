@@ -63,7 +63,6 @@ public class App extends Application {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        Connection CurrentConn = new DBConn().getConnection();
 
     }
 }
