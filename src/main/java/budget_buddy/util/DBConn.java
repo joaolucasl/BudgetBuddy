@@ -12,9 +12,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DBConn {
-  protected Connection conn;
+  protected static Connection conn;
 
   public DBConn() {
+    newConnection();
+  }
+
+  public Connection getConnection() {
+    if(conn == null){
+      newConnection();
+    }
+    return conn;
+  }
+  private void newConnection(){
     String dbFilePath = getDbPath().toString();
     try {
       Class.forName("org.sqlite.JDBC");
@@ -23,10 +33,6 @@ public class DBConn {
     } catch (Exception ex) {
       Logger.getLogger("DBConn").log(Level.SEVERE, "It was not possible to connect to the database. \n" + ex.getLocalizedMessage());
     }
-  }
-
-  public Connection getConnection() {
-    return this.conn;
   }
 
   private boolean dbFileExists() {
