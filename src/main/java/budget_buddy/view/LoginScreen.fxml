@@ -12,12 +12,12 @@
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints maxHeight="55.0" minHeight="55.0" prefHeight="55.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="55.0" minHeight="55.0" prefHeight="55.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="55.0" minHeight="55.0" prefHeight="55.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="83.0" minHeight="55.0" prefHeight="83.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="78.0" minHeight="55.0" prefHeight="78.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="73.0" minHeight="32.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="83.0" minHeight="37.0" prefHeight="37.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="55.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="55.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="107.0" minHeight="80.0" prefHeight="107.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="56.0" minHeight="11.0" prefHeight="43.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="107.0" minHeight="54.0" prefHeight="67.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
                 <Label styleClass="page-title" text="LOGIN" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
@@ -25,8 +25,9 @@
                 <TextField fx:id="userEmail" promptText="E-mail" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                 <PasswordField fx:id="userPwd" promptText="Password" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
 
-                <Button onAction="#handleSubmit" text="Entrar" mnemonicParsing="false" prefWidth="200"  GridPane.rowIndex="4" defaultButton="true" />
-                <Button text="Registrar" mnemonicParsing="false" prefWidth="200" GridPane.rowIndex="5" />
+                <Button defaultButton="true" mnemonicParsing="false" onAction="#handleSubmit" prefWidth="200" text="Entrar" GridPane.rowIndex="4" />
+                <Button mnemonicParsing="false" prefWidth="200" text="Registrar" GridPane.rowIndex="5" />
+                <Label fx:id="errorLabel" prefHeight="43.0" prefWidth="157.0" textAlignment="CENTER" textFill="#727272" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6" GridPane.vgrow="ALWAYS" />
             </children>
         </GridPane>
     </children>
