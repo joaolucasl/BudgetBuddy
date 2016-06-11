@@ -45,6 +45,8 @@ public class App extends Application {
     primaryStage.setScene(loginScene);
     primaryStage.setTitle("Budget Buddy - Login");
     primaryStage.setResizable(false);
+    primaryStage.minHeightProperty().set(600);
+    primaryStage.minWidthProperty().set(800);
     primaryStage.show();
   }
 }
