@@ -27,16 +27,24 @@ public class LoginController {
   @FXML
   Label errorLabel;
 
-  public void initialize(URL location, ResourceBundle resources){
+  private static LoginController instance;
+  private User loggedUser;
 
+  public void initialize(URL location, ResourceBundle resources){
+    instance = this;
+  }
+
+  public static LoginController getInstance() {
+    return instance;
   }
 
   public void handleSubmit(ActionEvent event) {
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
     String attPassword = userPwd.getText();
     String attEmail = userEmail.getText();
 
     if(User.authenticate(attEmail, attPassword)){
+      loggedUser = new User().setEmail(attEmail);
       //  Transition to new the HomeView
       Pane homeScreen = ViewLoader.LoadView("/budget_buddy/view/HomeScreen.fxml");
       window.setScene(new Scene(homeScreen));

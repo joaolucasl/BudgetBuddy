@@ -1,3 +1,4 @@
+
 package budget_buddy.model;
 
 import budget_buddy.util.DBConn;
@@ -8,6 +9,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import java.sql.Connection;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.jooq.impl.DSL.*;
 
@@ -29,25 +31,32 @@ public class User {
         .select()
         .from(table("users"))
         .where(field("users.email").equal(email))
-        .and(field("users.password").equal(password))
         .fetch()
+        .stream()
         .map(r -> new User()
           .setId((Integer) r.getValue("id"))
           .setEmail((String) r.getValue("email"))
-          .setPassword((String) r.getValue("password"))
-        );
+          .setPassword((String) r.getValue("password"), false)
+        )
+        .filter(user -> {
+          System.out.println(user.toString());
+          return user.checkPassword(password);
+        })
+        .collect(Collectors.toList());
 
-    if (matchingUsers.size() < 1) {
-      return false;
-    }
-    return true;
+    return matchingUsers.size() >= 1;
   }
 
   public boolean checkPassword(String AttemptedPwd) {
+    System.out.println(BCrypt.hashpw(AttemptedPwd, BCrypt.gensalt()));
     return BCrypt.checkpw(AttemptedPwd, this.password);
   }
 
+
   public Integer getId() {
+    if (id == null) {
+      return 0;
+    }
     return id;
   }
 
@@ -69,9 +78,12 @@ public class User {
     return password;
   }
 
-  public User setPassword(String password) {
-    String passwordHash = BCrypt.hashpw(password, BCrypt.gensalt());
-    this.password = passwordHash;
+  public User setPassword(String password, boolean shouldHash) {
+    if (shouldHash) {
+      this.password = BCrypt.hashpw(password, BCrypt.gensalt());
+    } else {
+      this.password = password;
+    }
     return this;
   }
 
@@ -92,4 +104,27 @@ public class User {
     this.lastName = lastName;
     return this;
   }
+
+  @Override
+  public String toString() {
+    return "User{" +
+      "id=" + id +
+      ", email='" + email + '\'' +
+      ", password='" + password + '\'' +
+      ", firstName='" + firstName + '\'' +
+      ", lastName='" + lastName + '\'' +
+      ", createdAt=" + createdAt +
+      ", updatedAt=" + updatedAt +
+      '}';
+  }
+
+  public void getTransactions() {
+    QueryBuilder
+      .select()
+      .from(table("transactions"))
+      .where(field("userID").equal(this.getId()))
+      .fetch()
+      .forEach(rec -> System.out.println(rec.toString()));
+  }
+
 }
