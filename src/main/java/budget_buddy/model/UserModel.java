@@ -1,5 +1,6 @@
 package budget_buddy.model;
 
+import budget_buddy.classes.Transaction;
 import budget_buddy.classes.User;
 import budget_buddy.util.DBConn;
 import org.jooq.DSLContext;
@@ -74,13 +75,8 @@ public class UserModel {
       .get(0);
   }
 
-  public static void getTransactions(int userID) {
-    QueryBuilder
-      .select()
-      .from(table("transactions"))
-      .where(field("userID").equal(userID))
-      .fetch()
-      .forEach(rec -> System.out.println(rec.toString()));
+  public static List<Transaction> getTransactions(Integer userID) {
+    return TransactionModel.findByUser(userID);
   }
 }
 

@@ -21,6 +21,6 @@ public class HomeController implements Initializable {
     sidebarSection.prefWidthProperty().bind(gridSection.widthProperty().multiply(0.25));
 
     User loggedUser = LoginController.getInstance().getLoggedUser();
-    UserModel.getTransactions(loggedUser.getId());
+    System.out.println(UserModel.getTransactions(loggedUser.getId()).toString());
   }
 }
