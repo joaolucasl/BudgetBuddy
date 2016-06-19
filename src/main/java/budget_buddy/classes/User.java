@@ -1,17 +1,11 @@
 
-package budget_buddy.model;
+package budget_buddy.classes;
 
-import budget_buddy.util.DBConn;
-import org.jooq.DSLContext;
-import org.jooq.impl.DSL;
+
+import budget_buddy.model.UserModel;
 import org.mindrot.jbcrypt.BCrypt;
 
-import java.sql.Connection;
 import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static org.jooq.impl.DSL.*;
 
 public class User {
   private Integer id;
@@ -21,34 +15,13 @@ public class User {
   private String lastName;
   private Date createdAt;
   private Date updatedAt;
-  static Connection CurrentConn = new DBConn().getConnection();
-  static DSLContext QueryBuilder = DSL.using(CurrentConn);
 
 
-  public static boolean authenticate(String email, String password) {
-    List<User> matchingUsers =
-      QueryBuilder
-        .select()
-        .from(table("users"))
-        .where(field("users.email").equal(email))
-        .fetch()
-        .stream()
-        .map(r -> new User()
-          .setId((Integer) r.getValue("id"))
-          .setEmail((String) r.getValue("email"))
-          .setPassword((String) r.getValue("password"), false)
-        )
-        .filter(user -> {
-          System.out.println(user.toString());
-          return user.checkPassword(password);
-        })
-        .collect(Collectors.toList());
-
-    return matchingUsers.size() >= 1;
+  public static User authenticate(String email, String password) {
+    return UserModel.authenticate(email, password);
   }
 
   public boolean checkPassword(String AttemptedPwd) {
-    System.out.println(BCrypt.hashpw(AttemptedPwd, BCrypt.gensalt()));
     return BCrypt.checkpw(AttemptedPwd, this.password);
   }
 
@@ -105,6 +78,7 @@ public class User {
     return this;
   }
 
+
   @Override
   public String toString() {
     return "User{" +
@@ -117,14 +91,4 @@ public class User {
       ", updatedAt=" + updatedAt +
       '}';
   }
-
-  public void getTransactions() {
-    QueryBuilder
-      .select()
-      .from(table("transactions"))
-      .where(field("userID").equal(this.getId()))
-      .fetch()
-      .forEach(rec -> System.out.println(rec.toString()));
-  }
-
 }
