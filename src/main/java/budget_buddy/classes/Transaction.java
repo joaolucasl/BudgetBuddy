@@ -13,23 +13,6 @@ public class Transaction {
   private String createdAt;
   private String updatedAt;
 
-  public String getUpdatedAt() {
-    return updatedAt;
-  }
-
-  public Transaction setUpdatedAt(String updatedAt) {
-    this.updatedAt = updatedAt;
-    return this;
-  }
-
-  public String getCreatedAt() {
-    return createdAt;
-  }
-
-  public Transaction setCreatedAt(String createdAt) {
-    this.createdAt = createdAt;
-    return this;
-  }
 
 
   public Integer getId() {
@@ -82,14 +65,30 @@ public class Transaction {
     return this;
   }
 
-
-
   public User getOwnerUser() {
     return ownerUser;
   }
 
   public Transaction setOwnerUser(User ownerUser) {
     this.ownerUser = ownerUser;
+    return this;
+  }
+
+  public String getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public Transaction setUpdatedAt(String updatedAt) {
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+  public String getCreatedAt() {
+    return createdAt;
+  }
+
+  public Transaction setCreatedAt(String createdAt) {
+    this.createdAt = createdAt;
     return this;
   }
 
