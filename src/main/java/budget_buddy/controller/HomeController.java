@@ -72,9 +72,9 @@ public class HomeController implements Initializable {
           super.updateItem(transaction, empty);
 
           if (!empty) {
-            if (transaction.getType().toLowerCase() == "saida") {
+            if (transaction.getType().toLowerCase().equals("saida")) {
               this.setStyle("-fx-background-color:  linear-gradient(to bottom, rgba(230,185,184,1) 0%, rgba(178,143,142,1) 100%);");
-            } else if (transaction.getType().toLowerCase() == "entrada") {
+            } else if (transaction.getType().toLowerCase().equals("entrada")) {
               this.setStyle("-fx-background-color:  linear-gradient(to bottom, rgba(164,179,87,1) 0%, rgba(117,137,12,1) 100%);");
             }
           }
